@@ -11,13 +11,13 @@ import (
 )
 
 const (
-	apiURL     = "https://paytest.treepay.co.th/api"
-	apiURLTest = "https://pay.treepay.co.th/api"
+	apiURL     = "https://pay.treepay.co.th/api"
+	apiURLTest = "https://paytest.treepay.co.th/api"
 )
 
 const (
-	APIURL     = "https://paytest.treepay.co.th/api"
-	APIURLTest = "https://pay.treepay.co.th/api"
+	APIURL     = "https://pay.treepay.co.th/api"
+	APIURLTest = "https://paytest.treepay.co.th/api"
 )
 
 const apiVersion = "1.5.0"
