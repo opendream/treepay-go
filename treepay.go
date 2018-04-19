@@ -119,6 +119,8 @@ func (b *BackendConfiguration) NewRequest(method, path string, params *Params) (
 		r = r.WithContext(params.Context)
 	}
 
+	r.Header.Set("Content-Type", "application/json; charset=utf8")
+
 	return r, nil
 }
 

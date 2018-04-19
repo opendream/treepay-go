@@ -46,6 +46,7 @@ func TestTreepay_NewRequest(t *testing.T) {
 		ShouldSignRequest: true,
 	})
 	assert.NoError(t, err)
+	assert.Contains(t, r.Header.Get("Content-Type"), "application/json")
 
 	defer r.Body.Close()
 
