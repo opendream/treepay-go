@@ -12,7 +12,7 @@ import (
 )
 
 func TestNewClient(t *testing.T) {
-	c := NewClient(&treepay.BackendConfiguration{}, "secret-key")
+	c := NewClient(&treepay.BackendConfiguration{}, "sitetest", "secret-key")
 	assert.Equal(t, "secret-key", c.Key)
 }
 
@@ -41,7 +41,7 @@ func TestClient_RequestSuccess(t *testing.T) {
 		count++
 	}))
 	b := treepay.NewBackendConfiguration(ts.URL)
-	c := NewClient(&b, "secret-key")
+	c := NewClient(&b, "sitetest", "secret-key")
 
 	// success
 	res, err := c.Request(&treepay.PaymentRequest{OrderNo: "tp-20180418-0001"})
@@ -64,7 +64,7 @@ func TestClient_RequestError(t *testing.T) {
 	}))
 
 	b := treepay.NewBackendConfiguration(ts.URL)
-	c := NewClient(&b, "secret-key")
+	c := NewClient(&b, "sitetest", "secret-key")
 
 	_, err := c.Request(&treepay.PaymentRequest{})
 	if assert.Error(t, err) {

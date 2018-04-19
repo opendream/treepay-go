@@ -6,8 +6,9 @@ import (
 )
 
 type Client struct {
-	Backend treepay.Backend
-	Key     string
+	Backend  treepay.Backend
+	SiteCode string
+	Key      string
 }
 
 func (c Client) Request(req *treepay.PaymentRequest) (*treepay.OverTheCounterAPIResponse, error) {
@@ -25,6 +26,6 @@ func (c Client) Request(req *treepay.PaymentRequest) (*treepay.OverTheCounterAPI
 	return &resp, nil
 }
 
-func NewClient(b treepay.Backend, key string) Client {
-	return Client{Backend: b, Key: key}
+func NewClient(b treepay.Backend, siteCode, key string) Client {
+	return Client{Backend: b, SiteCode: siteCode, Key: key}
 }

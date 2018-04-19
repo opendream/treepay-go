@@ -28,7 +28,7 @@ type PaymentRequest struct {
 	ReceiverPostCode  string `json:"recv_post_code"`
 	// site info
 	PaymentType         PaymentType `json:"pay_type"`
-	Currency            string      `json:"currency"`
+	Currency            int         `json:"currency"`
 	TreepayLanguageFlag string      `json:"tp_langFlag"`
 	SiteCode            string      `json:"site_cd"`
 	HashData            string      `json:"hash_data"`
