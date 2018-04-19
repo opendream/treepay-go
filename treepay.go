@@ -54,6 +54,14 @@ func (b *BackendConfiguration) Call(method, path string, params *Params, v inter
 		return err
 	}
 
+	if res.StatusCode >= 400 {
+		return &APIConnectionError{
+			treepayErr: &Error{
+				HTTPResponse: res,
+			},
+		}
+	}
+
 	defer res.Body.Close()
 
 	body, err := ioutil.ReadAll(res.Body)
@@ -62,7 +70,9 @@ func (b *BackendConfiguration) Call(method, path string, params *Params, v inter
 	}
 
 	// try to parse body as Error and detect whether if error or not.
-	treepayErr := Error{}
+	treepayErr := Error{
+		HTTPResponse: res,
+	}
 	if err := json.Unmarshal(body, &treepayErr); err == nil && treepayErr.Code != "" {
 		if treepayErr.Code != "0000" {
 			return &APIError{

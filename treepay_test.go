@@ -119,6 +119,9 @@ func TestTreepay_Response(t *testing.T) {
 			writer.Write([]byte(`{"thisisnotvalidjson"}`))
 		case "/apierror":
 			writer.Write([]byte(`{"res_cd":"A101","res_msg":"Invalid request data"}`))
+		case "/servererror":
+			writer.WriteHeader(http.StatusInternalServerError)
+			writer.Write([]byte(`something went wrong`))
 		}
 	}))
 	b := &BackendConfiguration{URL: ts.URL, HTTPClient: &http.Client{}}
@@ -136,7 +139,17 @@ func TestTreepay_Response(t *testing.T) {
 
 	err = b.Call(http.MethodPost, "/apierror", &Params{}, &res)
 	assert.Error(t, err)
-	assert.IsType(t, &APIError{}, err)
+	if assert.IsType(t, &APIError{}, err) {
+		apiError := err.(*APIError)
+		assert.NotNil(t, apiError.treepayErr.HTTPResponse)
+	}
+
+	err = b.Call(http.MethodPost, "/servererror", &Params{}, &res)
+	assert.Error(t, err)
+	if assert.IsType(t, &APIConnectionError{}, err) {
+		apiError := err.(*APIConnectionError)
+		assert.NotNil(t, apiError.treepayErr.HTTPResponse)
+	}
 }
 
 func TestTreepay_NewBackendConfiguration(t *testing.T) {

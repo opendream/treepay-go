@@ -2,6 +2,7 @@ package treepay
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -22,4 +23,15 @@ type APIError struct {
 
 func (e *APIError) Error() string {
 	return e.treepayErr.Error()
+}
+
+type APIConnectionError struct {
+	treepayErr *Error
+}
+
+func (e *APIConnectionError) Error() string {
+	defer e.treepayErr.HTTPResponse.Body.Close()
+	body, _ := ioutil.ReadAll(e.treepayErr.HTTPResponse.Body)
+
+	return fmt.Sprintf("Http%d: %s", e.treepayErr.HTTPResponse.StatusCode, body)
 }
