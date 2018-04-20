@@ -27,7 +27,7 @@ const clientVersion = "1.0.0"
 // default http timeout when communicate with Treepay api server
 const defaultHTTPTimeout = 60 * time.Second
 
-const defaultAgencyCode = "AGMF"
+const DefaultAgencyGroupCode = "AGMF"
 
 type Backend interface {
 	Call(method, path string, params *Params, v interface{}) error
@@ -93,6 +93,10 @@ func (b *BackendConfiguration) NewRequest(method, path string, params *Params) (
 
 	body := &strings.Reader{}
 	if params != nil && params.PaymentRequest != nil {
+		if params.PaymentRequest.AgencyGroupCode == "" {
+			params.PaymentRequest.AgencyGroupCode = DefaultAgencyGroupCode
+		}
+
 		if params.ShouldSignRequest {
 			hashString, err := b.Hash(params)
 			if err != nil {
@@ -128,7 +132,7 @@ func (b *BackendConfiguration) Hash(params *Params) (string, error) {
 	p := params.PaymentRequest
 	key := params.SecureKey
 
-	hashString := string(p.PaymentType) + p.OrderNo + fmt.Sprintf("%d", p.TradeMoney) + p.SiteCode + key + p.UserID + defaultAgencyCode
+	hashString := string(p.PaymentType) + p.OrderNo + fmt.Sprintf("%d", p.TradeMoney) + p.SiteCode + key + p.UserID + p.AgencyGroupCode
 	signed := sha256.Sum256([]byte(hashString))
 
 	return fmt.Sprintf("%x", signed), nil

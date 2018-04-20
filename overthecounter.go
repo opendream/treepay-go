@@ -2,7 +2,7 @@ package treepay
 
 type OverTheCounterAPIResponse struct {
 	TradeNo    string `json:"tno"`
-	TradeMoney uint64 `json:"trade_mony"`
+	TradeMoney string `json:"trade_mony"`
 	// The date of the transaction approval
 	TradeYMD string `json:"trade_ymd"`
 	// The time of the transaction approval

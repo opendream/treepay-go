@@ -9,7 +9,7 @@ import (
 func TestOverTheCounterAPIResponse_String(t *testing.T) {
 	r := OverTheCounterAPIResponse{
 		TradeNo:    "100020003000",
-		TradeMoney: 250000,
+		TradeMoney: "2500.00",
 		TradeYMD:   "20180418",
 		TradeHMS:   "170459",
 	}

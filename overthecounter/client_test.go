@@ -37,7 +37,7 @@ func TestClient_RequestSuccess(t *testing.T) {
 		assert.Equal(t, "tp-20180418-0001", p.OrderNo)
 
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(fmt.Sprintf(`{"tno":"10002000300%d"}`, count)))
+		w.Write([]byte(fmt.Sprintf(`{"res_cd":"0000","res_msg":"success","trade_ymd":"20180418","order_no":"tp-0001","trade_mony":"2500.00","tno":"10002000300%d","trade_hms":"173459","ref_no":"0080000000","info_url":"https://paytest.treepay.co.th/pay/000/offlineResult.tp"}`, count)))
 		count++
 	}))
 	b := treepay.NewBackendConfiguration(ts.URL)

@@ -14,11 +14,12 @@ func TestTreepay_Hash(t *testing.T) {
 	b := &BackendConfiguration{}
 	p := &Params{
 		PaymentRequest: &PaymentRequest{
-			PaymentType: PaymentTypeCreditDebitCard,
-			OrderNo:     "tp-20180418-0001",
-			TradeMoney:  250000,
-			SiteCode:    "treepaytest",
-			UserID:      "u0001",
+			PaymentType:     PaymentTypeCreditDebitCard,
+			OrderNo:         "tp-20180418-0001",
+			TradeMoney:      250000,
+			SiteCode:        "treepaytest",
+			UserID:          "u0001",
+			AgencyGroupCode: DefaultAgencyGroupCode,
 		},
 		SecureKey: "secure-key-for-test",
 	}
@@ -94,10 +95,12 @@ func TestTreepay_RequestTimeoutWithParamsContext(t *testing.T) {
 	}
 
 	var err error
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Millisecond)
+	defer cancel()
+
 	go func() {
 		res := map[string]interface{}{}
 
-		ctx, _ := context.WithTimeout(context.Background(), 5*time.Millisecond)
 		err = b.Call(http.MethodPost, "/", &Params{
 			Context: ctx,
 		}, &res)
