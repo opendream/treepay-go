@@ -132,7 +132,15 @@ func (b *BackendConfiguration) Hash(params *Params) (string, error) {
 	p := params.PaymentRequest
 	key := params.SecureKey
 
-	hashString := string(p.PaymentType) + p.OrderNo + fmt.Sprintf("%d", p.TradeMoney) + p.SiteCode + key + p.UserID + p.AgencyGroupCode
+	hashString := ""
+
+	hashString += fmt.Sprintf("%s", p.PaymentType) +
+		p.OrderNo +
+		fmt.Sprintf("%d", p.TradeMoney) +
+		p.SiteCode +
+		key +
+		p.UserID +
+		p.AgencyGroupCode
 	signed := sha256.Sum256([]byte(hashString))
 
 	return fmt.Sprintf("%x", signed), nil
