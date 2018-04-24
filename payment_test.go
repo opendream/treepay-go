@@ -26,10 +26,11 @@ func TestPaymentRequest_MarshalJSON(t *testing.T) {
 
 func TestPaymentStatus_MarshalJSON(t *testing.T) {
 	r := &PaymentStatus{
-		OrderNo:    "tp-20180418-0001",
-		TradeNo:    "100020003000",
-		TradeMoney: "2500.00",
-		TradeYMD:   "20180418",
+		OrderNo:     "tp-20180418-0001",
+		TradeNo:     "100020003000",
+		TradeMoney:  "2500.00",
+		TradeYMD:    "20180418",
+		TradeStatus: "STWD",
 	}
 
 	marshalled, err := json.Marshal(r)
@@ -44,4 +45,5 @@ func TestPaymentStatus_MarshalJSON(t *testing.T) {
 	assert.Equal(t, r.TradeMoney, unmarshalled.TradeMoney)
 	assert.Equal(t, r.TradeYMD, unmarshalled.TradeYMD)
 	assert.Equal(t, r.TradeHMS, unmarshalled.TradeHMS)
+	assert.Equal(t, r.TradeStatus, unmarshalled.TradeStatus)
 }
