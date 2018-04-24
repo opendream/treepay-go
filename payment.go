@@ -56,10 +56,17 @@ type PaymentStatus struct {
 	// The date of the transaction approval
 	TradeYMD string `json:"trade_ymd"`
 	// The time of the transaction approval
-	TradeHMS    string `json:"trade_hms"`
-	TradeStatus string `json:"trade_stat"`
+	TradeHMS    string      `json:"trade_hms"`
+	TradeStatus TradeStatus `json:"trade_stat"`
 
 	AuthNo  string `json:"auth_no"`
 	AuthYMD string `json:"auth_ymd"`
 	AuthHMS string `json:"auth_hms"`
 }
+
+type TradeStatus string
+
+const (
+	TradeStatusWaitForPayment TradeStatus = "STWD"
+	TradeStatusPaid           TradeStatus = "STIS"
+)

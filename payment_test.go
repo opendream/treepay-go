@@ -30,7 +30,7 @@ func TestPaymentStatus_MarshalJSON(t *testing.T) {
 		TradeNo:     "100020003000",
 		TradeMoney:  "2500.00",
 		TradeYMD:    "20180418",
-		TradeStatus: "STWD",
+		TradeStatus: TradeStatusWaitForPayment,
 	}
 
 	marshalled, err := json.Marshal(r)
