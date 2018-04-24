@@ -74,3 +74,56 @@ func TestClient_RequestError(t *testing.T) {
 		assert.Equal(t, "A101: Invalid request data", apiError.Error())
 	}
 }
+
+func TestClient_Check(t *testing.T) {
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		defer r.Body.Close()
+
+		body, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		p := treepay.PaymentRequest{}
+		if err := json.Unmarshal(body, &p); err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+
+		assert.NotEmpty(t, p.HashData)
+		assert.Equal(t, "tp-20180418-0001", p.OrderNo)
+
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(`{"res_cd":"0000","res_msg":"success","trade_mony": "100","tno":"100020003000","trade_ymd": "20180424","trade_hms": "130126"}`))
+	}))
+
+	b := treepay.NewBackendConfiguration(ts.URL)
+	c := NewClient(&b, "sitetest", "secret-key")
+
+	r, err := c.Check("tp-20180418-0001")
+	assert.NoError(t, err)
+	if assert.NotNil(t, r) {
+		assert.Equal(t, "100020003000", r.TradeNo)
+		assert.Equal(t, "100", r.TradeMoney)
+		assert.Equal(t, "20180424", r.TradeYMD)
+		assert.Equal(t, "130126", r.TradeHMS)
+	}
+}
+
+func TestClient_CheckError(t *testing.T) {
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(`{"res_cd":"A101","res_msg":"Invalid request data"}`))
+	}))
+
+	b := treepay.NewBackendConfiguration(ts.URL)
+	c := NewClient(&b, "sitetest", "secret-key")
+
+	_, err := c.Check("tp-20180418-0001")
+	if assert.Error(t, err) {
+		assert.IsType(t, &treepay.APIError{}, err)
+
+		apiError := err.(*treepay.APIError)
+		assert.Equal(t, "A101: Invalid request data", apiError.Error())
+	}
+}
