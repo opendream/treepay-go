@@ -31,5 +31,8 @@ github.com/opendream/treepay-go/treepay.go:102.18,104.5 1 0
 github.com/opendream/treepay-go/treepay.go:110.17,112.4 1 0
 github.com/opendream/treepay-go/treepay.go:118.16,120.3 1 0
 github.com/opendream/treepay-go/treepay.go:122.44,124.3 1 1
-github.com/opendream/treepay-go/treepay.go:131.69,139.2 5 2
-github.com/opendream/treepay-go/treepay.go:141.63,148.2 1 1
+github.com/opendream/treepay-go/treepay.go:131.45,132.12 1 2
+github.com/opendream/treepay-go/treepay.go:135.2,135.29 1 1
+github.com/opendream/treepay-go/treepay.go:132.12,134.3 1 1
+github.com/opendream/treepay-go/treepay.go:138.69,154.2 6 2
+github.com/opendream/treepay-go/treepay.go:156.63,163.2 1 1

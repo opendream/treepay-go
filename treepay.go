@@ -128,6 +128,13 @@ func (b *BackendConfiguration) NewRequest(method, path string, params *Params) (
 	return r, nil
 }
 
+func hashParamFormatUint64(i uint64) string {
+	if i == 0 {
+		return ""
+	}
+	return fmt.Sprintf("%d", i)
+}
+
 func (b *BackendConfiguration) Hash(params *Params) (string, error) {
 	p := params.PaymentRequest
 	key := params.SecureKey
@@ -136,7 +143,7 @@ func (b *BackendConfiguration) Hash(params *Params) (string, error) {
 
 	hashString += fmt.Sprintf("%s", p.PaymentType) +
 		p.OrderNo +
-		fmt.Sprintf("%d", p.TradeMoney) +
+		hashParamFormatUint64(p.TradeMoney) +
 		p.SiteCode +
 		key +
 		p.UserID +
