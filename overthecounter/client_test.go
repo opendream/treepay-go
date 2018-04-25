@@ -35,6 +35,7 @@ func TestClient_RequestSuccess(t *testing.T) {
 
 		assert.NotEmpty(t, p.HashData)
 		assert.Equal(t, "tp-20180418-0001", p.OrderNo)
+		assert.Equal(t, treepay.DefaultAgencyGroupCode, p.AgencyGroupCode)
 
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(fmt.Sprintf(`{"res_cd":"0000","res_msg":"success","trade_ymd":"20180418","order_no":"tp-0001","trade_mony":"2500.00","tno":"10002000300%d","trade_hms":"173459","ref_no":"0080000000","info_url":"https://paytest.treepay.co.th/pay/000/offlineResult.tp"}`, count)))
@@ -94,6 +95,7 @@ func TestClient_Check(t *testing.T) {
 		assert.NotEmpty(t, p.HashData)
 		assert.Equal(t, "tp-20180418-0001", p.OrderNo)
 		assert.Equal(t, treepay.PaymentTypeOverTheCounter, p.PaymentType)
+		assert.Equal(t, "sitetest", p.SiteCode)
 
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`{"res_cd":"0000","res_msg":"success","trade_mony": "100","tno":"100020003000","trade_ymd": "20180424","trade_hms": "130126"}`))

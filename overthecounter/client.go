@@ -12,6 +12,9 @@ type Client struct {
 }
 
 func (c Client) Request(req *treepay.PaymentRequest) (*treepay.OverTheCounterAPIResponse, error) {
+	if req.AgencyGroupCode == "" {
+		req.AgencyGroupCode = treepay.DefaultAgencyGroupCode
+	}
 	params := treepay.Params{
 		PaymentRequest:    req,
 		ShouldSignRequest: true,
@@ -29,6 +32,7 @@ func (c Client) Request(req *treepay.PaymentRequest) (*treepay.OverTheCounterAPI
 func (c Client) Check(orderNo string) (*treepay.PaymentStatus, error) {
 	params := treepay.Params{
 		PaymentRequest: &treepay.PaymentRequest{
+			SiteCode:    c.SiteCode,
 			PaymentType: treepay.PaymentTypeOverTheCounter,
 			OrderNo:     orderNo,
 		},

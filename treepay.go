@@ -93,10 +93,6 @@ func (b *BackendConfiguration) NewRequest(method, path string, params *Params) (
 
 	body := &strings.Reader{}
 	if params != nil && params.PaymentRequest != nil {
-		if params.PaymentRequest.AgencyGroupCode == "" {
-			params.PaymentRequest.AgencyGroupCode = DefaultAgencyGroupCode
-		}
-
 		if params.ShouldSignRequest {
 			hashString, err := b.Hash(params)
 			if err != nil {
