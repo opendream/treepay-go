@@ -93,6 +93,7 @@ func TestClient_Check(t *testing.T) {
 
 		assert.NotEmpty(t, p.HashData)
 		assert.Equal(t, "tp-20180418-0001", p.OrderNo)
+		assert.Equal(t, treepay.PaymentTypeOverTheCounter, p.PaymentType)
 
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`{"res_cd":"0000","res_msg":"success","trade_mony": "100","tno":"100020003000","trade_ymd": "20180424","trade_hms": "130126"}`))

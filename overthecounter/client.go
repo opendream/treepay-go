@@ -29,7 +29,8 @@ func (c Client) Request(req *treepay.PaymentRequest) (*treepay.OverTheCounterAPI
 func (c Client) Check(orderNo string) (*treepay.PaymentStatus, error) {
 	params := treepay.Params{
 		PaymentRequest: &treepay.PaymentRequest{
-			OrderNo: orderNo,
+			PaymentType: treepay.PaymentTypeOverTheCounter,
+			OrderNo:     orderNo,
 		},
 		ShouldSignRequest: true,
 		SecureKey:         c.Key,
