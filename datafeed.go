@@ -1,31 +1,31 @@
 package treepay
 
 type DataFeedItem struct {
-	SiteName   string `json:"site_name"`
-	PayType    string `json:"pay_type"`
-	PayBrand   string `json:"pay_brand"`
-	AuthDate   string `json:"auth_date"`
-	TradeMoney string `json:"trade_mony"`
-	Currency   string `json:"currency"`
-	AuthNo     string `json:"auth_no"`
-	OrderNo    string `json:"order_no"`
-	TradeNo    string `json:"tno"`
-	OrderName  string `json:"order_name"`
-	GoodName   string `json:"good_name"`
-	OrderTel   string `json:"order_tel"`
+	SiteName   string `form:"site_name"`
+	PayType    string `form:"pay_type"`
+	PayBrand   string `form:"pay_brand"`
+	AuthDate   string `form:"auth_date"`
+	TradeMoney string `form:"trade_mony"`
+	Currency   string `form:"currency"`
+	AuthNo     string `form:"auth_no"`
+	OrderNo    string `form:"order_no"`
+	TradeNo    string `form:"tno"`
+	OrderName  string `form:"order_name"`
+	GoodName   string `form:"good_name"`
+	OrderTel   string `form:"order_tel"`
 
 	// Added field in refund API (Only supports Credit/Debit Card)
-	CancelYN        Status `json:"cancel_yn"`
-	PartCancelYN    Status `json:"part_cancel_yn"`
-	CancelYMD       string `json:"cancel_ymd"`
-	PartCancelMoney string `json:"part_cancel_mony"`
+	CancelYN        Status `form:"cancel_yn"`
+	PartCancelYN    Status `form:"part_cancel_yn"`
+	CancelYMD       string `form:"cancel_ymd"`
+	PartCancelMoney string `form:"part_cancel_mony"`
 
 	// Additional Field in Installment Service
-	InstallmentPeriod string `json:"installment_period"`
+	InstallmentPeriod string `form:"installment_period"`
 
 	// Additional Field in Over the Counter Service
-	IncludedCustomerFee string `json:"in_cust_fee"`
+	IncludedCustomerFee string `form:"in_cust_fee"`
 	// Reference number of Barcode
-	ReferenceNo string `json"reference_no"`
-	ExpiryDate  string `json:"expire_date"`
+	ReferenceNo string `form"reference_no"`
+	ExpiryDate  string `form:"expire_date"`
 }
