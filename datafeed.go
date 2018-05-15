@@ -26,6 +26,6 @@ type DataFeedItem struct {
 	// Additional Field in Over the Counter Service
 	IncludedCustomerFee string `form:"in_cust_fee"`
 	// Reference number of Barcode
-	ReferenceNo string `form"reference_no"`
+	ReferenceNo string `form:"reference_no"`
 	ExpiryDate  string `form:"expire_date"`
 }
